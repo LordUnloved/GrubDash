@@ -37,7 +37,6 @@ You will not need to make any edits to HTML or CSS for this project.
 
 5. Anytime you need to assign a new id to an order or dish, use the nextId function exported from src/utils/nextId.js.
 </br>
-</br>
 
 # Steps to complete
 
