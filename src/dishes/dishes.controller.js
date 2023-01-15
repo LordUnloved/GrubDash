@@ -6,7 +6,7 @@ const dishes = require(path.resolve("src/data/dishes-data"));
 // Use this function to assign IDs when necessary
 const nextId = require("../utils/nextId");
 
-//validate
+//validattion begins here
 function dishExists(req, res, next) {
   const dishId = req.params.dishId;
   const foundDish = dishes.find((dish) => dish.id === dishId);
