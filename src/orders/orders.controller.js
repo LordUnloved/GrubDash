@@ -101,14 +101,14 @@ function hasStatus(req, res, next) {
 
 function validateStatus(req, res, next) {
   const { data: { status } = {} } = req.body;
-  const validStatuses = [
+  const statuses = [
     "pending",
     "preparing",
     "out-for-delivery",
     "delivered",
   ];
 
-  if (!validStatuses.includes(status)) {
+  if (!statuses.includes(status)) {
     return next({ status: 400, message: "Invalid status" });
   }
 
