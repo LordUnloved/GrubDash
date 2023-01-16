@@ -9,10 +9,11 @@ const nextId = require("../utils/nextId");
 //validattion begins here
 ///checking whether dish exists
 function dishExists(req, res, next) {
-  const dishId = req.params.dishId;///extracting id
+  const dishId = req.params.dishId; ///extracting id
   const found = dishes.find((dish) => dish.id === dishId); ///using .find to compare dish id to ids in data
 
-  if (found) { ///if found dish is truthy store it in local memory
+  if (found) {
+    ///if found dish is truthy store it in local memory
     res.locals.dish = found;
     return next();
   } ///else return error code
@@ -23,9 +24,12 @@ function dishExists(req, res, next) {
 }
 ///validating dish Id
 function dishIdIsValid(req, res, next) {
-  const { data: { id }, } = req.body; 
+  const {
+    data: { id },
+  } = req.body;
   const dishId = req.params.dishId; ///extracting dish id
-  if (!id || dishId === id) { ///if id matches return next else error message
+  if (!id || dishId === id) {
+    ///if id matches return next else error message
     return next();
   }
   next({
@@ -35,9 +39,12 @@ function dishIdIsValid(req, res, next) {
 }
 ///checking for price
 function dishHasPricing(req, res, next) {
-  const { data: { price }, } = req.body;
+  const {
+    data: { price },
+  } = req.body;
 
-  if (!price) { ///if no price return error message
+  if (!price) {
+    ///if no price return error message
     next({
       status: 400,
       message: "Dish must include a price",
@@ -50,7 +57,8 @@ function dishHasPricing(req, res, next) {
 ///validating price
 function priceIsValid(req, res, next) {
   const price = res.locals.price; ///retriving price from local memory
-  if (price <= 0 || !Number.isInteger(price)) { ///if price is less than equal to zero or NaN return error code
+  if (price <= 0 || !Number.isInteger(price)) {
+    ///if price is less than equal to zero or NaN return error code
     next({
       status: 400,
       message: `Dish must have valid price greater than 0`,
@@ -60,9 +68,12 @@ function priceIsValid(req, res, next) {
 }
 ///checking for valid image
 function dishImageIsValid(req, res, next) {
-  const { data: { image_url }, } = req.body;
+  const {
+    data: { image_url },
+  } = req.body;
 
-  if (!image_url || image_url === "") { ///if not an image url or if empty string return erro code
+  if (!image_url || image_url === "") {
+    ///if not an image url or if empty string return erro code
     next({
       status: 400,
       message: "Dish must include a image_url",
@@ -74,9 +85,12 @@ function dishImageIsValid(req, res, next) {
 }
 ///checking for a name "WE NEED A NAME" ///
 function dishIsNamed(req, res, next) {
-  const { data: { name }, } = req.body;
+  const {
+    data: { name },
+  } = req.body;
 
-  if (!name || name === "") { ///if not name or is empty string return err mesaage
+  if (!name || name === "") {
+    ///if not name or is empty string return err mesaage
     next({
       status: 400,
       message: "Dish must include a name",
@@ -88,9 +102,12 @@ function dishIsNamed(req, res, next) {
 }
 ///checking for valind description
 function hasDescription(req, res, next) {
-  const { data: { description }, } = req.body;
+  const {
+    data: { description },
+  } = req.body;
 
-  if (!description || description === "") { ///if not truthy description or empty string , return err 
+  if (!description || description === "") {
+    ///if not truthy description or empty string , return err
     next({
       status: 400,
       message: "Dish must include a description",
@@ -100,7 +117,6 @@ function hasDescription(req, res, next) {
   res.locals.description = description; ///store in local memory
   next();
 }
-
 
 ///<-----ROUTES------>////
 //CRUD begns here, CREATE, READ, UPDATE, DESTROY
@@ -121,11 +137,10 @@ function create(req, res) {
   res.status(201).json({ data: newDish });
 }
 
-
 function read(req, res) {
   res.json({ data: res.locals.dish });
 }
-//update a dish 
+//update a dish
 function update(req, res) {
   const dish = res.locals.dish;
   const { name, description, price, image_url } = res.locals;
